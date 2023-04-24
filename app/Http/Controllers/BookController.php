@@ -34,9 +34,9 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
-            'author' => 'required',
-            'description' => 'required',
+            'title' => 'required|max:20',
+            'author' => 'required|alpha|max:25',
+            'description' => 'required|max:40',
             'published_date' => 'before:today|required|',
         ]);
 
@@ -62,10 +62,10 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
-            'author' => 'required',
-            'description' => 'required',
-            'published_date' => 'required|date',
+            'title' => 'required|max:20',
+            'author' => 'required|alpha|max:25',
+            'description' => 'required|max:40',
+            'published_date' => 'before:today|required|',
         ]);
 
         Book::whereId($id)->update($validatedData);

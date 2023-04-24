@@ -9,7 +9,6 @@
                 <div class="card">
                     <div class="card-header">{{ __('Create Book') }}</div>
 
-                    <div class="card-body">
                         <form method="POST" action="{{ route('books.store') }}">
                             @csrf
 

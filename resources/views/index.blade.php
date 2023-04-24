@@ -4,11 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Books</h1>
+                <h3>BOOK HEAVEN</h3>
                 <a class="btn btn-primary" href="{{ route('books.create') }}">Create Book</a>
                 <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
+
                 <hr>
                 <form action="{{ route('books.index') }}" method="GET">
                     <input type="text" name="search" value="{{$search ?? ''}}" placeholder="Search for books...">
@@ -38,11 +39,13 @@
                             <td>{{ $book->description }}</td>
                             <td>{{ $book->published_date }}</td>
                             <td>
-                                <a class="btn btn-secondary" href="{{ route('books.edit', $book->id) }}">Edit</a>
+                                <a class="btn btn-secondary" href="{{ route('books.edit', $book->id) }}" onclick="return confirm('Are you sure you want to edit this book?')">Edit</a>
+
                                 <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this book?')">Delete</button>
+
                                 </form>
                             </td>
                         </tr>
