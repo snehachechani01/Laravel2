@@ -6,24 +6,25 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::simplePaginate(5);
+        $search = $request->query('search');
+        $books = Book::where(function ($query) use ($search) {
+            if ($search) {
+                $query->where('Title', 'like', '%' . $search . '%')
+                    ->orWhere('Author', 'like', '%' . $search . '%')
+                    ->orWhere('Description', 'like', '%' . $search . '%')
+                    ->orWhere('Published_Date', 'like', '%' . $search . '%');
+            }
 
-        return view('index', compact('books'));
+        })->simplepaginate(4);
+
+
+
+        return view('index', compact('books', 'search'));
     }
 
-    public function search(Request $request)
-    {
-
-        $query = $request->input('query');
-        $books = Book::where('title', 'LIKE', "%{$query}%")
-            ->orWhere('author', 'LIKE', "%{$query}%")
-            ->orWhere('published_date', 'LIKE', "%{$query}%");
-//            ->paginate(5);
-            return view('search', compact('books'));
-    }
-
+//
 
     public function create()
     {

@@ -1,15 +1,37 @@
-<nav class="flex items-center justify-between flex-wrap bg-gray-100 p-6">
-    <div class="flex items-center flex-shrink-0 text-gray-800 mx-auto">
-        <span class="font-extrabold text-4xl tracking-tight">BOOK STORE</span>
-    </div>
-    <div class="navbar-menu hidden lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow">
-            <a href="{{ route('login') }}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-4 py-3 px-4 rounded-md bg-gray-200 hover:bg-gray-300">
-                Login
-            </a>
-            <a href="{{ route('register') }}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-900 mr-4 py-3 px-4 rounded-md bg-gray-200 hover:bg-gray-300">
-                Register
-            </a>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="">BOOK HEAVEN</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+{{--            <li class="nav-item active">--}}
+{{--                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">About</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Contact</a>--}}
+{{--            </li>--}}
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if (Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link" href="#">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/logout') }}">Logout</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/register') }}">Register</a>
+                </li>
+            @endif
+        </ul>
     </div>
 </nav>
+

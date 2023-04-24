@@ -1,6 +1,6 @@
 
 @extends('app')
-
+@extends('navigation')
 @section('content')
 
     <div class="card">

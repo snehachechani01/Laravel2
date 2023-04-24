@@ -16,17 +16,17 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('login');
+//});
 //
 //Route::resource('books', BookController::class);
 //Route::get('/books', [BookController::class, 'index'])->name('books.index');
 //Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('login', [AuthController::class, 'index'])->name('login');
-    Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('throttle:2,1');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/', [AuthController::class, 'login'])->name('login')->middleware('throttle:2,1');
 
     Route::get('register', [AuthController::class, 'register_view'])->name('register');
     Route::post('register', [AuthController::class, 'register'])->name('register')->middleware('throttle:2,1');
@@ -35,10 +35,10 @@ Route::group(['middleware' => 'guest'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
-//    Route::get('home', [AuthController::class, 'home'])->name('home');
+
      Route::resource('/books', BookController::class);
     Route::get('/books', [BookController::class, 'index'])->name('books.index');
     // Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
-    Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
+//    Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

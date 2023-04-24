@@ -6,9 +6,12 @@
             <div class="col-md-12">
                 <h1>Books</h1>
                 <a class="btn btn-primary" href="{{ route('books.create') }}">Create Book</a>
+                <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
                 <hr>
-                <form action="{{ route('books.search') }}" method="GET">
-                    <input type="text" name="query" placeholder="Search for books...">
+                <form action="{{ route('books.index') }}" method="GET">
+                    <input type="text" name="search" value="{{$search ?? ''}}" placeholder="Search for books...">
                     <button type="submit">Search</button>
                 </form>
 
@@ -49,6 +52,10 @@
 
                 <!-- Display pagination links -->
                 {{ $books->render() }}
+
+                <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ class AuthController extends Controller
         // login code
 
         if(\Auth::attempt($request->only('email','password'))){
-            return redirect()->route('login');
+//            return redirect()->route('');
         }
 
         return redirect()->route('login')->withError('Login details are not valid');
@@ -56,7 +56,7 @@ class AuthController extends Controller
             return redirect()->route('books');
         }
 
-        return redirect()->route('login')->withError('Error');
+        return redirect()->route('/')->withError('Error');
 
 
     }
