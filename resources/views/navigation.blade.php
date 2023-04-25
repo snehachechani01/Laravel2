@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{ url('/') }}"style="color:black";>Sign In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/register') }}"style="color:black";>Register</a>
+                    <a class="nav-link" href="{{ url('/register') }}"style="color:black";>Sign Up</a>
                 </li>
             @endif
         </ul>
