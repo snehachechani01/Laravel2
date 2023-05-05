@@ -22,10 +22,10 @@ class AuthController extends Controller
         // login code
 
         if(\Auth::attempt($request->only('email','password'))){
-//            return redirect()->route('');
+           return redirect()->route('books.index');
         }
 
-        return redirect()->route('login')->withError('Login details are not valid');
+        return redirect()->route('/')->withError('Login details are not valid');
 
     }
 
@@ -34,32 +34,40 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         // validate
         $request->validate([
-            'name'=>'required|alpha|max:15',
+            'name' => ['required', 'regex:/^[a-zA-Z\s]+$/u', 'max:15'],
             'email' => 'required|unique:users|email',
-            'password'=>'required|confirmed'
+            'password' => 'required|confirmed'
         ]);
-
+    
         // save in users table
-
-        User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=> \Hash::make($request->password)
+    
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password)
         ]);
-
-        // login user here
-
-        if(\Auth::attempt($request->only('email','password'))){
-            return redirect()->route('books');
+        if (!$user){
+            return redirect(route('register'))->with('error','Registration Failed, Try Again');
         }
-
-        return redirect()->route('/')->withError('Error');
-
-
+        return redirect(route('login'))->with('success','Registration Successful');
     }
+    
+        // login user here
+    
+        // if (\Auth::attempt($request->only('email', 'password'))) {
+        //     return redirect()->route('books');
+        // }
+    
+    //     return redirect()->route('login')->withSuccess('Registration successful. Please login to continue.');
+    //     if (\Auth::attempt($request->only('email', 'password'))) {
+    //         return redirect()->route('/books');
+    //     }
+    // }
+    
 
     public function books(){
         return view('books');
